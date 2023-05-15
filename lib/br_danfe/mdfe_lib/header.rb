@@ -43,7 +43,15 @@ module BrDanfe
       end
 
       def company_informations
-        "<b>CNPJ: </b>#{@xml['emit/CNPJ']}   <b>IE: </b>#{@xml['emit/IE']}"
+        "#{document_number} <b>IE: </b>#{@xml['emit/IE']}"
+      end
+
+      def document_number
+        if @xml['emit/CNPJ'].present?
+          "<b>CNPJ:</b> #{@xml['emit/CNPJ']}"
+        else
+          "<b>CPF:</b> #{@xml['emit/CPF']}"
+        end
       end
 
       def logo
