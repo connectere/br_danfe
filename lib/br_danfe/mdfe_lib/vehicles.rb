@@ -35,13 +35,13 @@ module BrDanfe
 
       def generate_vehicles
         @pdf.move_cursor_to 425
-
         vehicles.each_with_index do |cell, index|
           @pdf.bounding_box [0, @pdf.cursor], width: 190, height: 20 do
             @pdf.stroke_color GRAY_COLOR
             @pdf.dash([2], phase: 6)
             @pdf.stroke_horizontal_line(0, 190, at: 26) unless index.zero?
-            @pdf.text cell[:content], cell[:options]
+            @pdf.text_box(cell[:plate][:content], size: 9, align: :left, at: [0, @pdf.cursor])
+            @pdf.text_box(cell[:rntrc][:content], size: 9, align: :left, at: [100, @pdf.cursor])
             @pdf.undash
             @pdf.move_down 20
           end
@@ -65,7 +65,10 @@ module BrDanfe
 
       def vehicle(rodo)
         [
-          cell_text(rodo.css('placa').text)
+          {
+            plate: cell_text(rodo.css('placa').text),
+            rntrc: cell_text(rodo.css('RNTRC').text)
+          },
         ]
       end
 
