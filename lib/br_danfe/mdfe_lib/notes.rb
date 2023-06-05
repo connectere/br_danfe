@@ -19,7 +19,7 @@ module BrDanfe
       def title
         title = 'Observações'
 
-        @pdf.move_down 20
+        @pdf.move_down 40
         @pdf.bounding_box [0, @pdf.cursor], width: 278, height: 20 do
           @pdf.stroke_color GRAY_COLOR
           @pdf.stroke_horizontal_line(0, 526, at: 6)
